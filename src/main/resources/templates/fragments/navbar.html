@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+<div th:fragment="navbar">
+    <nav class="navbar navbar-expand-sm navbar-light bg-dark">
+        <div class="container-fluid">
+            <!-- Site Logo -->
+            <a class="navbar-brand" href="/">
+                <img alt="Book store" height="35" loading="lazy" th:src="@{/images/logo.jpg}"/>
+            </a>
+            <button class="navbar-toggler btn-close-white" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/books/all">Available Books</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link text-white" href="/books/add">Add New Book </a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav me mb-2 mb-lg-0">
+                    <th:block sec:authorize="isAuthenticated()" class="nav-item">
+                        <li class="nav-item me-2">
+                            <a class="nav-link text-white" href="/books/my-books">My Books</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-info" th:text="${'Welcome, ' + #authentication.principal.fullName}">!</a>
+                        </li>
+                        <li class="nav-item text-white">
+                            <form th:action="@{/users/logout}" th:method="post">
+                                <button class="btn btn-outline-light" type="submit">Logout</button>
+                            </form>
+                        </li>
+                    </th:block>
+
+                    <th:block sec:authorize="!isAuthenticated()">
+                        <li class="nav-item">
+                            <a class="nav-link text-white" th:href="@{/users/login}">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" th:href="@{/users/register}">Register</a>
+                        </li>
+                    </th:block>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+</div>
+
+
+</body>
+</html>
