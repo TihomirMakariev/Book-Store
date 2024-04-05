@@ -3,7 +3,7 @@
 ![Book Store](https://github.com/TihomirMakariev/Book-Store/blob/main/Images/pic_1.png)
 
 ## About The Project
-### The purpose of this application is to help with the organization of beekeepers, making it easy and convenient for each beekeeper to create a list of his own beehives in which to store all the information about them.
+### TThe Book Store is a web application built with Spring Boot, Thymeleaf, and MySQL, offering features for browsing, adding, and managing books. It includes user authentication, registration, and secure access control, providing a seamless experience for both users and administrators. With its responsive design and robust security measures, it ensures efficient book management and user interaction..
 
 ## [Demo](https://diary-of-beekeeper.herokuapp.com)
 
