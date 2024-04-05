@@ -1,6 +1,6 @@
 # Diary of Beekeeper
 
-![Diary of Beekeeper](https://github.com/TheNightArcher/Diary_Of_Beekeeper/blob/master/images/home_page.jpg)
+![Book Store](https://github.com/TihomirMakariev/Book-Store/blob/main/Images/pic_1.png)
 
 ## About The Project
 ### The purpose of this application is to help with the organization of beekeepers, making it easy and convenient for each beekeeper to create a list of his own beehives in which to store all the information about them.
