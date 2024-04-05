@@ -1,4 +1,4 @@
-# Diary of Beekeeper
+# Book Store
 
 ![Book Store](https://github.com/TihomirMakariev/Book-Store/blob/main/Images/pic_1.png)
 
