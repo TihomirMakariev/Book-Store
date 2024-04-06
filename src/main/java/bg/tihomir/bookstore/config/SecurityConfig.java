@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 @EnableMethodSecurity(prePostEnabled = false)
@@ -34,7 +35,7 @@ public class SecurityConfig {
                                 // All static resources which are situated in js, images, css are available for anyone
                                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                                 // everyone can login and register
-                                .requestMatchers("/", "/users/login", "/users/register").permitAll()
+                                .requestMatchers("/", "/books/all", "/users/login", "/users/register").permitAll()
                                 .requestMatchers("/books/add", "/books/edit", "/books/delete").hasRole("ADMIN")
                                 .requestMatchers("/books/my-books").authenticated()
                                 // all other pages are available for logger in users
@@ -79,6 +80,5 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         return new AppUserDetailsService(userRepository);
     }
-
 
 }

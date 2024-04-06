@@ -18,6 +18,9 @@ public class MyBookEntity{
     @Column(nullable = false)
     private String price;
 
+    @Column(nullable = false)
+    private String imageFileName;
+
     @Column(name = "user_id")
     private Long userEntity;
 
@@ -66,6 +69,15 @@ public class MyBookEntity{
 
     public MyBookEntity setUserEntity(Long userEntity) {
         this.userEntity = userEntity;
+        return this;
+    }
+
+    public String getImageFileName() {
+        return imageFileName;
+    }
+
+    public MyBookEntity setImageFileName(String imageFileName) {
+        this.imageFileName = imageFileName;
         return this;
     }
 }

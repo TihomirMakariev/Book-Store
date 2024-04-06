@@ -10,16 +10,24 @@ import bg.tihomir.bookstore.service.BookService;
 import bg.tihomir.bookstore.service.MyBookService;
 import bg.tihomir.bookstore.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.security.Principal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,8 +77,11 @@ public class BookController {
     @PostMapping("/books/add")
     public String confirmRegister(@Valid AddOrUpdateBookDTO addBookDTO,
                                   BindingResult bindingResult,
-                                  RedirectAttributes redirectAttributes) {
-
+                                  RedirectAttributes redirectAttributes) throws IOException {
+        if (addBookDTO.getImageFileName().isEmpty()) {
+            bindingResult.addError(
+                    new FieldError("addBookDTO", "imageFileName", "The image file is required"));
+        }
         if (bindingResult.hasErrors()) {
             redirectAttributes
                     .addFlashAttribute("addBookDTO", addBookDTO)
@@ -80,7 +91,31 @@ public class BookController {
             return "redirect:/books/add";
         }
 
-        bookService.addBook(addBookDTO);
+
+        // Save image file
+        MultipartFile image = addBookDTO.getImageFileName();
+        LocalDate createdAt = LocalDate.now();
+        String formattedDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        String storageFileName = formattedDate + "_" + image.getOriginalFilename();
+
+        try {
+            String uploadDir = "public/images/";
+            Path uploadPath = Paths.get(uploadDir);
+
+            if (!Files.exists(uploadPath)) {
+                Files.createDirectories(uploadPath);
+            }
+            try (InputStream inputStream = image.getInputStream()) {
+                Files.copy(inputStream, Paths.get(uploadDir + storageFileName),
+                        StandardCopyOption.REPLACE_EXISTING);
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Exception: " + ex.getMessage());
+        }
+
+
+        bookService.addBook(addBookDTO, createdAt, storageFileName);
 
         redirectAttributes.addFlashAttribute("message", "Тhe book " + addBookDTO.getName() + " has been successfully added");
         redirectAttributes.addFlashAttribute("alertClass", "alert-success");
@@ -106,14 +141,6 @@ public class BookController {
         List<MyBookEntity> myBooks = myBookRepository.findByUserEntity(currentUser.getId());
         model.addAttribute("myBooks", myBooks);
 
-
-//        // Get the current user's ID from the Principal object
-//        String userId = principal.getName(); // Assuming the user ID is stored in the username field
-//
-//        // Retrieve the list of books belonging to the current user
-//        List<MyBookEntity> myBooks = myBookService.getAllMyBooks();
-
-
         model.addAttribute("myBooks", myBooks);
 
         return "book-myBooks";
@@ -131,6 +158,7 @@ public class BookController {
         myBook.setName(book.getName());
         myBook.setAuthor(book.getAuthor());
         myBook.setPrice(book.getPrice());
+        myBook.setImageFileName(book.getImageFileName());
 
         myBook.setUserEntity(currentUser.getId());
 

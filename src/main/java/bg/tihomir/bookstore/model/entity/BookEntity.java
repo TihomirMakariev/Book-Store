@@ -7,6 +7,9 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 @Entity
 @Table (name = "books")
 public class BookEntity extends BaseEntity{
@@ -17,6 +20,10 @@ public class BookEntity extends BaseEntity{
     private String author;
     @Column(nullable = false)
     private String price;
+    @Column
+    private LocalDate createdAt;
+    @Column(nullable = false)
+    private String imageFileName;
 
 
     public BookEntity() {
@@ -46,6 +53,24 @@ public class BookEntity extends BaseEntity{
 
     public BookEntity setPrice(String price) {
         this.price = price;
+        return this;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public BookEntity setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    public String getImageFileName() {
+        return imageFileName;
+    }
+
+    public BookEntity setImageFileName(String imageFileName) {
+        this.imageFileName = imageFileName;
         return this;
     }
 }

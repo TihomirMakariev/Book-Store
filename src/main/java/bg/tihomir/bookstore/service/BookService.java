@@ -7,6 +7,8 @@ import org.hibernate.ObjectNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,9 +28,15 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public void addBook(AddOrUpdateBookDTO addOrUpdateBookDTO) {
-        BookEntity newBook = modelMapper.map(addOrUpdateBookDTO, BookEntity.class);
-
+    public void addBook(AddOrUpdateBookDTO addOrUpdateBookDTO,
+                        LocalDate createdAt,
+                        String storageFileName) {
+        BookEntity newBook = new BookEntity();
+        newBook.setName(addOrUpdateBookDTO.getName());
+        newBook.setAuthor(addOrUpdateBookDTO.getAuthor());
+        newBook.setPrice(addOrUpdateBookDTO.getPrice());
+        newBook.setCreatedAt(createdAt);
+        newBook.setImageFileName(storageFileName);
 
         this.bookRepository.save(newBook);
     }
@@ -65,6 +73,7 @@ public class BookService {
         bookEntity.setName(updateBookDTO.getName());
         bookEntity.setAuthor(updateBookDTO.getAuthor());
         bookEntity.setPrice(updateBookDTO.getPrice());
+        bookEntity.setImageFileName(updateBookDTO.getImageFileName().toString());
 
         this.bookRepository.save(bookEntity);
     }
