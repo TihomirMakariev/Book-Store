@@ -10,7 +10,7 @@
 ### This is what the details of all books look like in tabular form. Available books that can be edited or deleted only by a users with administrator role:
 ![Available books](https://github.com/TihomirMakariev/Book-Store/blob/main/Images/pic_2.png)
 
-### And this is how beehive details looks like: And this is My list of books. It is only available for Authenticated users!
+### And this is My list of books. It is only available for Authenticated users!
 ![My book list](https://github.com/TihomirMakariev/Book-Store/blob/main/Images/pic_3.png)
 
 ### Build With:
