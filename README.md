@@ -3,9 +3,9 @@
 ![Book Store](https://github.com/TihomirMakariev/Book-Store/blob/main/Images/pic_1.png)
 
 ## About The Project
-### The Book Store is a web application built with Spring Boot, Thymeleaf, and MySQL, offering features for browsing, adding, and managing books. It includes user authentication, registration, and secure access control, providing a seamless experience for both users and administrators. With its responsive design and robust security measures, it ensures efficient book management and user interaction..
+### The Book Store is a web application built with Spring Boot, Thymeleaf, and MySQL, offering features for browsing, adding, and managing books. It includes user authentication, registration, and secure access control, providing a seamless experience for both users and administrators. With its responsive design and robust security measures, it ensures efficient book management and user interaction.
 
-## [Demo] (Coming soon ... )
+## [Demo] (http://book-store.eu-west-2.elasticbeanstalk.com/)
 
 ### This is what the details of all books look like in tabular form. Available books that can be edited or deleted only by a users with administrator role:
 ![Available books](https://github.com/TihomirMakariev/Book-Store/blob/main/Images/pic_2.png)
